@@ -6,24 +6,38 @@ import {AllPostsQueryResult} from '@/sanity.types'
 import DateComponent from '@/app/components/Date'
 import OnBoarding from '@/app/components/Onboarding'
 import Avatar from '@/app/components/Avatar'
+import Image from '@/app/components/SanityImage'
 import {dataAttr} from '@/sanity/lib/utils'
 
 const Post = ({post}: {post: AllPostsQueryResult[number]}) => {
-  const {_id, title, slug, excerpt, date, author} = post
+  const {_id, title, slug, excerpt, date, author, coverImage} = post
 
   return (
     <article
       data-sanity={dataAttr({id: _id, type: 'post', path: 'title'}).toString()}
       key={_id}
-      className="border border-gray-200 rounded-sm p-6 bg-gray-50 flex flex-col justify-between transition-colors hover:bg-white relative"
+      className="border group border-gray-200 rounded-sm p-6 bg-gray-50 flex flex-col justify-between transition-colors hover:bg-white relative"
     >
       <Link className="hover:text-brand underline transition-colors" href={`/posts/${slug}`}>
         <span className="absolute inset-0 z-10" />
       </Link>
-      <div>
-        <h3 className="text-2xl mb-4">{title}</h3>
+      <div className="flex gap-2 justify-between items-start">
+        <div>
+          <h3 className="text-2xl mb-4">{title}</h3>
 
-        <p className="line-clamp-3 text-sm leading-6 text-gray-600 max-w-[70ch]">{excerpt}</p>
+          <p className="line-clamp-3 text-sm leading-6 text-gray-600 max-w-[70ch]">{excerpt}</p>
+        </div>
+
+        {post?.coverImage && (
+          <Image
+            id={post.coverImage.asset?._ref || ''}
+            alt={post.coverImage.alt || ''}
+            className="rounded-sm w-50 grayscale-100 group-hover:grayscale-0 transition-all object-cover"
+            width={200}
+            height={538}
+            crop={post.coverImage.crop}
+          />
+        )}
       </div>
       <div className="flex items-center justify-between mt-6 pt-4 border-t border-gray-100">
         {author && author.firstName && author.lastName && (
@@ -74,7 +88,7 @@ export const MorePosts = async ({skip, limit}: {skip: string; limit: number}) =>
   )
 }
 
-export const AllPosts = async () => {
+export const AllPosts = async ({heading, subHeading}: {heading?: string; subHeading?: string}) => {
   const {data} = await sanityFetch({query: allPostsQuery})
 
   if (!data || data.length === 0) {
@@ -82,10 +96,7 @@ export const AllPosts = async () => {
   }
 
   return (
-    <Posts
-      heading="Recent Blogs"
-      subHeading={`${data.length === 1 ? 'This blog post is' : `These ${data.length} blog posts are`} my latest thoughts and updates.`}
-    >
+    <Posts heading={heading} subHeading={subHeading}>
       {data.map((post: AllPostsQueryResult[number]) => (
         <Post key={post._id} post={post} />
       ))}

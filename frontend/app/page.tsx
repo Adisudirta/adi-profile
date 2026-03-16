@@ -5,6 +5,7 @@ import {AllPosts} from '@/app/components/Posts'
 import {settingsQuery} from '@/sanity/lib/queries'
 import {sanityFetch} from '@/sanity/lib/live'
 import {dataAttr} from '@/sanity/lib/utils'
+import Link from 'next/link'
 
 export default async function Page() {
   const {data: settings} = await sanityFetch({
@@ -23,7 +24,7 @@ export default async function Page() {
                   Hi there, I'm Adi.
                 </h1>
 
-                <div className="text-md text-center leading-6 prose uppercase py-1 px-3  font-mono italic">
+                <div className="text-md text-left lg:text-center leading-6 prose uppercase py-1 px-3  font-mono italic">
                   {settings?.description && (
                     <div
                       data-sanity={dataAttr({
@@ -45,7 +46,12 @@ export default async function Page() {
       <div className="border-t border-gray-100 bg-gray-50">
         <div className="container">
           <aside className="py-12 sm:py-20">
-            <Suspense>{await AllPosts()}</Suspense>
+            <Suspense>
+              {await AllPosts({
+                heading: 'Recent Blogs',
+                subHeading: 'These are my latest thoughts and updates.',
+              })}
+            </Suspense>
           </aside>
         </div>
       </div>
