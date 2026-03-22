@@ -15,7 +15,7 @@ export default async function Page() {
   return (
     <>
       <div className="relative">
-        <div className="relative bg-[url(/images/tile-grid-black.png)] bg-size-[5px]">
+        <div className="relative bg-[url(/images/tile-1-black.png)] bg-size-[5px]">
           <div className="bg-linear-to-t from-white w-full h-full absolute top-0"></div>
           <div className="container">
             <div className="relative min-h-[40vh] mx-auto max-w-2xl pt-10 xl:pt-20 pb-30 space-y-6 lg:max-w-4xl lg:px-12 flex flex-col items-center justify-center">
