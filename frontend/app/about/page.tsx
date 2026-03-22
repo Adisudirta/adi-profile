@@ -4,7 +4,7 @@ export default function Page() {
       <section className="px-8 pt-10 mb-24 md:mb-40">
         <div className="max-w-7xl mx-auto">
           <p className="font-['Inter'] text-[11px] tracking-[0.3em] uppercase text-neutral-500 mb-8">
-            Software Engineer
+            Software Developer
           </p>
           <h1 className="font-['Inter'] font-black text-[clamp(3.5rem,10vw,8rem)] leading-[0.9] tracking-tighter text-primary uppercase mb-12">
             ADI SUDIRTA
@@ -22,7 +22,7 @@ export default function Page() {
             </div>
             <div className="md:col-span-5 pb-2">
               <p className="text-headline-lg font-light text-on-surface-variant leading-relaxed text-xl md:text-2xl">
-                A software engineer based in Bali, Indonesia, with a professional background in
+                A software developer based in Bali, Indonesia, with a professional background in
                 software development and experience in fintech.
               </p>
             </div>

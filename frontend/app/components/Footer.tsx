@@ -11,7 +11,7 @@ export default function Footer() {
 
             <div className="mt-4 flex font-bold flex-col gap-2 text-sm font-mono uppercase mb-10 lg:mb-0">
               <a
-                href="https://www.instagram.com/yourusername"
+                href="https://www.linkedin.com/in/adi-sudirtayasa-8a729b209/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex gap-2 items-center"
@@ -37,7 +37,7 @@ export default function Footer() {
               </a>
 
               <a
-                href="https://www.instagram.com/yourusername"
+                href="https://github.com/Adisudirta"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex gap-2 items-center"
@@ -62,7 +62,7 @@ export default function Footer() {
               </a>
 
               <a
-                href="https://www.instagram.com/yourusername"
+                href="mailto:yanadisudirta@gmail.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex gap-2 items-center"
@@ -74,17 +74,16 @@ export default function Footer() {
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="lucide lucide-instagram-icon lucide-instagram"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  className="lucide lucide-mail-icon lucide-mail"
                 >
-                  <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                  <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+                  <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" />
+                  <rect x="2" y="4" width="20" height="16" rx="2" />
                 </svg>
 
-                <span>Instagram</span>
+                <span>yanadisudirta@gmail.com</span>
               </a>
             </div>
           </div>
