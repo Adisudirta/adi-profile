@@ -1,5 +1,5 @@
 import type {Metadata, ResolvingMetadata} from 'next'
-import {notFound} from 'next/navigation'
+import NotFound from '@/app/components/NotFound'
 import {type PortableTextBlock} from 'next-sanity'
 import {Suspense} from 'react'
 
@@ -62,7 +62,11 @@ export default async function PostPage(props: Props) {
   const [{data: post}] = await Promise.all([sanityFetch({query: postQuery, params})])
 
   if (!post?._id) {
-    return notFound()
+    return (
+      <div className="h-[70vh] flex items-center justify-center">
+        <NotFound />
+      </div>
+    )
   }
 
   return (

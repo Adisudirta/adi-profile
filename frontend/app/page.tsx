@@ -20,11 +20,11 @@ export default async function Page() {
           <div className="container">
             <div className="relative min-h-[40vh] mx-auto max-w-2xl pt-10 xl:pt-20 pb-30 space-y-6 lg:max-w-4xl lg:px-12 flex flex-col items-center justify-center">
               <div className="flex flex-col gap-4 items-center">
-                <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-black">
+                <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-black md:w-auto w-full">
                   Hi there, I'm Adi.
                 </h1>
 
-                <div className="text-md text-left lg:text-center leading-6 prose uppercase py-1 px-3  font-mono italic">
+                <div className="text-md text-left lg:text-center leading-6 prose py-1 px-0 md:px-3  font-mono italic">
                   {settings?.description && (
                     <div
                       data-sanity={dataAttr({

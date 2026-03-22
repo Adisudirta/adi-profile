@@ -21,7 +21,7 @@ const Post = ({post}: {post: AllPostsQueryResult[number]}) => {
       <Link className="hover:text-brand underline transition-colors" href={`/posts/${slug}`}>
         <span className="absolute inset-0 z-10" />
       </Link>
-      <div className="flex gap-2 justify-between items-start">
+      <div className="flex md:flex-row flex-col-reverse gap-2 justify-between items-start">
         <div>
           <h3 className="text-2xl mb-4">{title}</h3>
 
@@ -32,7 +32,7 @@ const Post = ({post}: {post: AllPostsQueryResult[number]}) => {
           <Image
             id={post.coverImage.asset?._ref || ''}
             alt={post.coverImage.alt || ''}
-            className="rounded-sm w-50 grayscale-100 group-hover:grayscale-0 transition-all object-cover"
+            className="rounded-sm w-full md:w-50 grayscale-100 group-hover:grayscale-0 transition-all object-cover"
             width={200}
             height={538}
             crop={post.coverImage.crop}
