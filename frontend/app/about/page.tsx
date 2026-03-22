@@ -13,10 +13,9 @@ export default function Page() {
             <div className="md:col-span-7">
               <div className="aspect-video bg-surface-container overflow-hidden group">
                 <img
-                  alt="Minimalist desk setup with mechanical keyboard and monitor"
-                  className="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700"
-                  data-alt="Monochrome minimalist workstation with coding screen and keyboard"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQrY8Qormw-eCZcbX-yXPF60w-iqWgN0x-aPHbPGUNKnMcYageaUzqsiuc6J4rLmyEKuootJpYzAzVl4kCLIjR9kxREiP59mJ6Q2ici6VKLgcK_H37F6jgwhhlQDR2L0d5_psP1pwdIuFUZAT6-urZ8IN9Kdee9pBaO53JRzVWto4MXWauMSLGPpLRYjqUDD2ICJu52CcOEoTkYVW4oEqOKovjvJD2zYkdQkI-1V7CcWg_xiqVzty5eERUwvixRcKkB3GYZdlS5Xk"
+                  alt="Adi Sudirta"
+                  className="w-full h-full object-cover object-bottom grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700"
+                  src="/images/about-hero.jpeg"
                 />
               </div>
             </div>

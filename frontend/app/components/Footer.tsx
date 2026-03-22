@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 export default function Footer() {
   return (
     <footer className="bg-gray-50 relative">
@@ -88,14 +90,12 @@ export default function Footer() {
             </div>
           </div>
 
-          <a
-            href="https://github.com/sanity-io/sanity-template-nextjs-clean"
+          <Link
+            href="/about"
             className="rounded-full flex gap-2 font-mono whitespace-nowrap items-center bg-black hover:bg-blue focus:bg-blue py-3 px-6 text-white transition-colors duration-200"
-            target="_blank"
-            rel="noopener noreferrer"
           >
             Work with me?
-          </a>
+          </Link>
         </div>
       </div>
     </footer>
