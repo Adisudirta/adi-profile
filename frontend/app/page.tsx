@@ -5,7 +5,6 @@ import {AllPosts} from '@/app/components/Posts'
 import {settingsQuery} from '@/sanity/lib/queries'
 import {sanityFetch} from '@/sanity/lib/live'
 import {dataAttr} from '@/sanity/lib/utils'
-import Link from 'next/link'
 
 export default async function Page() {
   const {data: settings} = await sanityFetch({
