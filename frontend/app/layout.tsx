@@ -16,6 +16,7 @@ import {sanityFetch, SanityLive} from '@/sanity/lib/live'
 import {settingsQuery} from '@/sanity/lib/queries'
 import {resolveOpenGraphImage} from '@/sanity/lib/utils'
 import {handleError} from '@/app/client-utils'
+import { PostHogProvider } from './components/PosthogProvider'
 
 /**
  * Generate metadata for the page.
@@ -71,23 +72,26 @@ export default async function RootLayout({children}: {children: React.ReactNode}
   return (
     <html lang="en" className={`${inter.variable} ${ibmPlexMono.variable} bg-white text-black`}>
       <body>
-        <Toaster />
-        <section className="min-h-screen pt-24">
-          {/* The <Toaster> component is responsible for rendering toast notifications used in /app/client-utils.ts and /app/components/DraftModeToast.tsx */}
-          {isDraftMode && (
-            <>
-              <DraftModeToast />
-              {/*  Enable Visual Editing, only to be rendered when Draft Mode is enabled */}
-              <VisualEditing />
-            </>
-          )}
-          {/* The <SanityLive> component is responsible for making all sanityFetch calls in your application live, so should always be rendered. */}
-          <SanityLive onError={handleError} />
-          <Header />
-          <main className="">{children}</main>
-          <Footer />
-        </section>
-        <SpeedInsights />
+        <PostHogProvider> 
+          <Toaster />
+          <section className="min-h-screen pt-24">
+            {/* The <Toaster> component is responsible for rendering toast notifications used in /app/client-utils.ts and /app/components/DraftModeToast.tsx */}
+            {isDraftMode && (
+              <>
+                <DraftModeToast />
+                {/*  Enable Visual Editing, only to be rendered when Draft Mode is enabled */}
+                <VisualEditing />
+              </>
+            )}
+            {/* The <SanityLive> component is responsible for making all sanityFetch calls in your application live, so should always be rendered. */}
+            <SanityLive onError={handleError} />
+            <Header />
+            <main className="">{children}</main>
+            <Footer />
+          </section>
+          <SpeedInsights />
+        </PostHogProvider>
+        
       </body>
     </html>
   )
