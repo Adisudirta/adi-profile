@@ -11,6 +11,7 @@
 import {PortableText, type PortableTextComponents, type PortableTextBlock} from 'next-sanity'
 import ResolvedLink from '@/app/components/ResolvedLink'
 import Image from '@/app/components/SanityImage'
+import CodeBlock from '@/app/components/CodeBlock'
 
 export default function CustomPortableText({
   className,
@@ -37,6 +38,57 @@ export default function CustomPortableText({
               className="rounded-sm"
             />
           </figure>
+        )
+      },
+      code: ({value}) => {
+        return (
+          <CodeBlock
+            code={value?.code || ''}
+            language={value?.language}
+            filename={value?.filename}
+          />
+        )
+      },
+      table: ({value}) => {
+        const rows: {cells?: string[]}[] = value?.rows || []
+        if (rows.length === 0) return null
+
+        const [headerRow, ...dataRows] = rows
+
+        return (
+          <div className="scrollbar-table not-prose my-6 overflow-x-auto">
+            <table className="min-w-full border-collapse text-sm">
+              <thead>
+                <tr className="border-b-2 border-gray-200 dark:border-gray-700">
+                  {headerRow.cells?.map((cell, i) => (
+                    <th
+                      key={i}
+                      className="whitespace-nowrap bg-gray-50 px-4 py-3 text-left font-semibold text-gray-900 dark:bg-gray-900 dark:text-gray-100"
+                    >
+                      {cell}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {dataRows.map((row, rowIndex) => (
+                  <tr
+                    key={rowIndex}
+                    className="border-b border-gray-100 transition-colors hover:bg-gray-50 dark:border-gray-800 dark:hover:bg-gray-900/50"
+                  >
+                    {row.cells?.map((cell, cellIndex) => (
+                      <td
+                        key={cellIndex}
+                        className="whitespace-nowrap px-4 py-3 text-gray-700 dark:text-gray-300"
+                      >
+                        {cell}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )
       },
     },
@@ -102,7 +154,7 @@ export default function CustomPortableText({
   }
 
   return (
-    <div className={`prose-a:text-brand prose dark:prose-invert ${className}`}>
+    <div className={`prose-a:text-blue prose-a:underline prose dark:prose-invert min-w-0 ${className}`}>
       <PortableText components={components} value={value} />
     </div>
   )

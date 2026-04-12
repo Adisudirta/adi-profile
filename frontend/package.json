@@ -28,6 +28,7 @@
     "react-dom": "19.2.3",
     "sanity": "^5.1.0",
     "sanity-image": "^1.0.0",
+    "shiki": "^4.0.2",
     "sonner": "^2.0.7",
     "tailwindcss": "^4.1.17"
   },

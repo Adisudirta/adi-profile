@@ -3,6 +3,11 @@
 @plugin "@tailwindcss/typography";
 
 @layer base {
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
   h1,
   h2,
   h3,
@@ -11,6 +16,57 @@
   h6 {
     @apply font-medium tracking-tight;
   }
+}
+
+/* Code block scrollbar — always dark */
+.scrollbar-code {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-gray-600) var(--color-gray-800);
+}
+.scrollbar-code::-webkit-scrollbar {
+  height: 6px;
+}
+.scrollbar-code::-webkit-scrollbar-track {
+  background: var(--color-gray-800);
+}
+.scrollbar-code::-webkit-scrollbar-thumb {
+  background: var(--color-gray-600);
+  border-radius: 9999px;
+}
+.scrollbar-code::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gray-500);
+}
+
+/* Table scrollbar — light/dark aware */
+.scrollbar-table {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-gray-300) var(--color-gray-100);
+}
+.scrollbar-table::-webkit-scrollbar {
+  height: 6px;
+}
+.scrollbar-table::-webkit-scrollbar-track {
+  background: var(--color-gray-100);
+  border-radius: 9999px;
+}
+.scrollbar-table::-webkit-scrollbar-thumb {
+  background: var(--color-gray-300);
+  border-radius: 9999px;
+}
+.scrollbar-table::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gray-400);
+}
+.dark .scrollbar-table {
+  scrollbar-color: var(--color-gray-600) var(--color-gray-800);
+}
+.dark .scrollbar-table::-webkit-scrollbar-track {
+  background: var(--color-gray-800);
+}
+.dark .scrollbar-table::-webkit-scrollbar-thumb {
+  background: var(--color-gray-600);
+}
+.dark .scrollbar-table::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gray-500);
 }
 
 @utility container {

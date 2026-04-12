@@ -16,6 +16,7 @@ import {
   type DocumentLocation,
 } from 'sanity/presentation'
 import {assist} from '@sanity/assist'
+import {codeInput} from '@sanity/code-input'
 
 // Environment variables for project configuration
 const projectId = process.env.SANITY_STUDIO_PROJECT_ID || 'your-projectID'
@@ -123,6 +124,7 @@ export default defineConfig({
       structure, // Custom studio structure configuration, imported from ./src/structure.ts
     }),
     // Additional plugins for enhanced functionality
+    codeInput(),
     unsplashImageAsset(),
     assist(),
     visionTool(),

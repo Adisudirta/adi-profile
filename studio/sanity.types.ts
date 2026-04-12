@@ -119,6 +119,18 @@ export type BlockContent = Array<
       _type: 'image'
       _key: string
     }
+  | ({
+      _key: string
+    } & Code)
+  | {
+      rows?: Array<{
+        cells?: Array<string>
+        _type: 'row'
+        _key: string
+      }>
+      _type: 'table'
+      _key: string
+    }
 >
 
 export type Button = {
@@ -393,6 +405,14 @@ export type SanityAssistSchemaTypeField = {
   >
 }
 
+export type Code = {
+  _type: 'code'
+  language?: string
+  filename?: string
+  code?: string
+  highlightedLines?: Array<number>
+}
+
 export type SanityImagePaletteSwatch = {
   _type: 'sanity.imagePaletteSwatch'
   background?: string
@@ -521,6 +541,7 @@ export type AllSanitySchemaTypes =
   | SanityAssistInstructionFieldRef
   | SanityAssistInstruction
   | SanityAssistSchemaTypeField
+  | Code
   | SanityImagePaletteSwatch
   | SanityImagePalette
   | SanityImageDimensions

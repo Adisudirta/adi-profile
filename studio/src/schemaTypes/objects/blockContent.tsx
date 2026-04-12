@@ -102,5 +102,47 @@ export const blockContent = defineType({
         hotspot: true,
       },
     }),
+    defineArrayMember({
+      type: 'code',
+    }),
+    defineArrayMember({
+      type: 'object',
+      name: 'table',
+      title: 'Table',
+      fields: [
+        defineField({
+          name: 'rows',
+          title: 'Rows',
+          type: 'array',
+          of: [
+            defineArrayMember({
+              type: 'object',
+              name: 'row',
+              title: 'Row',
+              preview: {
+                select: {cells: 'cells'},
+                prepare({cells}: {cells?: string[]}) {
+                  return {title: cells?.join(' | ') || 'Empty row'}
+                },
+              },
+              fields: [
+                defineField({
+                  name: 'cells',
+                  title: 'Cells',
+                  type: 'array',
+                  of: [{type: 'string'}],
+                }),
+              ],
+            }),
+          ],
+        }),
+      ],
+      preview: {
+        select: {rows: 'rows'},
+        prepare({rows}: {rows?: unknown[]}) {
+          return {title: `Table (${rows?.length ?? 0} rows)`}
+        },
+      },
+    }),
   ],
 })

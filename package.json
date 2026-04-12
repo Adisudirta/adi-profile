@@ -1,18 +1,6 @@
 {
-  "name": "sanity-template-nextjs-clean",
-  "description": "Next.js + Sanity: A Powerful Website Starter with Real-time Visual Editing",
-  "keywords": [
-    "Sanity",
-    "Next.js",
-    "Headless CMS",
-    "Visual Editing",
-    "Live Content API (LCAPI)",
-    "Real-time"
-  ],
-  "homepage": "https://github.com/sanity-io/sanity-template-nextjs-clean#readme",
-  "bugs": {
-    "url": "https://github.com/sanity-io/sanity-template-nextjs-clean/issues"
-  },
+  "name": "adi-profile",
+  "description": "A profile website built with Next.js and Sanity.io",
   "workspaces": [
     "studio",
     "frontend"
