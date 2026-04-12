@@ -147,8 +147,13 @@ export default function CustomPortableText({
       },
     },
     marks: {
+      code: ({children}) => (
+        <code className="rounded bg-gray-100 px-1.5 py-0.5 font-mono text-sm text-pink-600 dark:bg-gray-800 dark:text-pink-400">
+          {children}
+        </code>
+      ),
       link: ({children, value: link}) => {
-        return <ResolvedLink link={link}>{children}</ResolvedLink>
+        return <ResolvedLink link={{...link, openInNewTab: true}}>{children}</ResolvedLink>
       },
     },
   }
