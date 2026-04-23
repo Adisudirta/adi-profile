@@ -72,13 +72,6 @@ export default async function RootLayout({children}: {children: React.ReactNode}
 
   return (
     <html lang="en" className={`${inter.variable} ${ibmPlexMono.variable} bg-white text-black`}>
-      <head>
-        <Script
-          src="https://analytics.ahrefs.com/analytics.js"
-          data-key="904nICmXDGLmqtauIV4/1A"
-          async
-        />
-      </head>
       <body>
         <PostHogProvider>
           <Toaster />
