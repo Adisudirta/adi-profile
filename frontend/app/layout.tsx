@@ -2,6 +2,7 @@ import './globals.css'
 
 import {SpeedInsights} from '@vercel/speed-insights/next'
 import type {Metadata} from 'next'
+import Script from 'next/script'
 import {Inter, IBM_Plex_Mono} from 'next/font/google'
 import {draftMode} from 'next/headers'
 import {toPlainText} from 'next-sanity'
@@ -16,7 +17,7 @@ import {sanityFetch, SanityLive} from '@/sanity/lib/live'
 import {settingsQuery} from '@/sanity/lib/queries'
 import {resolveOpenGraphImage} from '@/sanity/lib/utils'
 import {handleError} from '@/app/client-utils'
-import { PostHogProvider } from '@/app/components/PHProvider'
+import {PostHogProvider} from '@/app/components/PHProvider'
 
 /**
  * Generate metadata for the page.
@@ -71,8 +72,15 @@ export default async function RootLayout({children}: {children: React.ReactNode}
 
   return (
     <html lang="en" className={`${inter.variable} ${ibmPlexMono.variable} bg-white text-black`}>
+      <head>
+        <Script
+          src="https://analytics.ahrefs.com/analytics.js"
+          data-key="904nICmXDGLmqtauIV4/1A"
+          async
+        />
+      </head>
       <body>
-        <PostHogProvider> 
+        <PostHogProvider>
           <Toaster />
           <section className="min-h-screen pt-24">
             {/* The <Toaster> component is responsible for rendering toast notifications used in /app/client-utils.ts and /app/components/DraftModeToast.tsx */}
@@ -91,7 +99,6 @@ export default async function RootLayout({children}: {children: React.ReactNode}
           </section>
           <SpeedInsights />
         </PostHogProvider>
-        
       </body>
     </html>
   )
