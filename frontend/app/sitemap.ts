@@ -1,60 +1,31 @@
 import {MetadataRoute} from 'next'
-import {sanityFetch} from '@/sanity/lib/live'
+import {client} from '@/sanity/lib/client'
 import {sitemapData} from '@/sanity/lib/queries'
-import {headers} from 'next/headers'
 
-/**
- * This file creates a sitemap (sitemap.xml) for the application. Learn more about sitemaps in Next.js here: https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap
- * Be sure to update the `changeFrequency` and `priority` values to match your application's content.
- */
+export const revalidate = 3600 // revalidate every hour
+
+const BASE_URL = 'https://www.adisudirta.site'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const allPostsAndPages = await sanityFetch({
-    query: sitemapData,
-  })
-  const headersList = await headers()
-  const sitemap: MetadataRoute.Sitemap = []
-  const host = headersList.get('host') as string
-  const protocol = host.includes('localhost') ? 'http' : 'https'
-  const domain = `${protocol}://${host}`
-  sitemap.push({
-    url: domain,
-    lastModified: new Date(),
-    priority: 1,
-    changeFrequency: 'monthly',
-  })
+  const allPostsAndPages = await client.fetch(sitemapData, {}, {next: {revalidate: 3600}})
 
-  if (allPostsAndPages != null && allPostsAndPages.data.length != 0) {
-    let priority: number
-    let changeFrequency:
-      | 'monthly'
-      | 'always'
-      | 'hourly'
-      | 'daily'
-      | 'weekly'
-      | 'yearly'
-      | 'never'
-      | undefined
-    let url: string
+  const sitemap: MetadataRoute.Sitemap = [
+    {
+      url: BASE_URL,
+      lastModified: new Date(),
+      priority: 1,
+      changeFrequency: 'monthly',
+    },
+  ]
 
-    for (const p of allPostsAndPages.data) {
-      switch (p._type) {
-        case 'page':
-          priority = 0.8
-          changeFrequency = 'monthly'
-          url = `${domain}/${p.slug}`
-          break
-        case 'post':
-          priority = 0.5
-          changeFrequency = 'never'
-          url = `${domain}/posts/${p.slug}`
-          break
-      }
+  if (allPostsAndPages?.length) {
+    for (const p of allPostsAndPages) {
+      const isPost = p._type === 'post'
       sitemap.push({
+        url: isPost ? `${BASE_URL}/posts/${p.slug}` : `${BASE_URL}/${p.slug}`,
         lastModified: p._updatedAt || new Date(),
-        priority,
-        changeFrequency,
-        url,
+        priority: isPost ? 0.5 : 0.8,
+        changeFrequency: isPost ? 'never' : 'monthly',
       })
     }
   }
