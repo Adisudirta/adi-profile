@@ -139,6 +139,49 @@ export type Button = {
   link?: Link
 }
 
+export type Tag = {
+  _id: string
+  _type: 'tag'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  title: string
+}
+
+export type Person = {
+  _id: string
+  _type: 'person'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  firstName: string
+  lastName: string
+  picture: {
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    alt?: string
+    _type: 'image'
+  }
+}
+
+export type SanityImageCrop = {
+  _type: 'sanity.imageCrop'
+  top: number
+  bottom: number
+  left: number
+  right: number
+}
+
+export type SanityImageHotspot = {
+  _type: 'sanity.imageHotspot'
+  x: number
+  y: number
+  height: number
+  width: number
+}
+
 export type Settings = {
   _id: string
   _type: 'settings'
@@ -179,22 +222,6 @@ export type Settings = {
   }
 }
 
-export type SanityImageCrop = {
-  _type: 'sanity.imageCrop'
-  top: number
-  bottom: number
-  left: number
-  right: number
-}
-
-export type SanityImageHotspot = {
-  _type: 'sanity.imageHotspot'
-  x: number
-  y: number
-  height: number
-  width: number
-}
-
 export type Page = {
   _id: string
   _type: 'page'
@@ -222,6 +249,13 @@ export type PersonReference = {
   [internalGroqTypeReferenceTo]?: 'person'
 }
 
+export type TagReference = {
+  _ref: string
+  _type: 'reference'
+  _weak?: boolean
+  [internalGroqTypeReferenceTo]?: 'tag'
+}
+
 export type Post = {
   _id: string
   _type: 'post'
@@ -241,25 +275,16 @@ export type Post = {
     _type: 'image'
   }
   date?: string
-  author?: PersonReference
-}
-
-export type Person = {
-  _id: string
-  _type: 'person'
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  firstName: string
-  lastName: string
-  picture: {
-    asset?: SanityImageAssetReference
-    media?: unknown
-    hotspot?: SanityImageHotspot
-    crop?: SanityImageCrop
-    alt?: string
-    _type: 'image'
-  }
+  authors?: Array<
+    {
+      _key: string
+    } & PersonReference
+  >
+  tags?: Array<
+    {
+      _key: string
+    } & TagReference
+  >
 }
 
 export type Slug = {
@@ -520,13 +545,15 @@ export type AllSanitySchemaTypes =
   | BlockContentTextOnly
   | BlockContent
   | Button
-  | Settings
+  | Tag
+  | Person
   | SanityImageCrop
   | SanityImageHotspot
+  | Settings
   | Page
   | PersonReference
+  | TagReference
   | Post
-  | Person
   | Slug
   | SanityAssistInstructionTask
   | SanityAssistTaskStatus

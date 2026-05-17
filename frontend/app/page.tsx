@@ -2,14 +2,21 @@ import {Suspense} from 'react'
 import {PortableText} from '@portabletext/react'
 
 import {AllPosts} from '@/app/components/Posts'
-import {settingsQuery} from '@/sanity/lib/queries'
+import TagFilter from '@/app/components/TagFilter'
+import {settingsQuery, allTagsQuery} from '@/sanity/lib/queries'
 import {sanityFetch} from '@/sanity/lib/live'
 import {dataAttr} from '@/sanity/lib/utils'
 
-export default async function Page() {
-  const {data: settings} = await sanityFetch({
-    query: settingsQuery,
-  })
+type Props = {
+  searchParams: Promise<{tag?: string}>
+}
+
+export default async function Page({searchParams}: Props) {
+  const {tag: tagId} = await searchParams
+  const [{data: settings}, {data: tags}] = await Promise.all([
+    sanityFetch({query: settingsQuery}),
+    sanityFetch({query: allTagsQuery}),
+  ])
 
   return (
     <>
@@ -45,11 +52,17 @@ export default async function Page() {
       <div className="border-t border-gray-100 bg-gray-50">
         <div className="container">
           <aside className="py-12 sm:py-20">
+            <div className="mb-8">
+              <h2 className="text-3xl text-gray-900 sm:text-4xl lg:text-5xl">Recent Blogs</h2>
+              <p className="mt-2 text-lg leading-8 text-gray-600 mb-6">
+                These are my latest thoughts and updates.
+              </p>
+              <Suspense>
+                <TagFilter tags={tags ?? []} />
+              </Suspense>
+            </div>
             <Suspense>
-              {await AllPosts({
-                heading: 'Recent Blogs',
-                subHeading: 'These are my latest thoughts and updates.',
-              })}
+              {await AllPosts({tagId})}
             </Suspense>
           </aside>
         </div>

@@ -1,9 +1,19 @@
 import {Suspense} from 'react'
-
-import {AllPosts} from '@/app/components/Posts'
 import Link from 'next/link'
 
-export default async function Page() {
+import {AllPosts} from '@/app/components/Posts'
+import TagFilter from '@/app/components/TagFilter'
+import {sanityFetch} from '@/sanity/lib/live'
+import {allTagsQuery} from '@/sanity/lib/queries'
+
+type Props = {
+  searchParams: Promise<{tag?: string}>
+}
+
+export default async function Page({searchParams}: Props) {
+  const {tag: tagId} = await searchParams
+  const {data: tags} = await sanityFetch({query: allTagsQuery})
+
   return (
     <div className="border-t border-gray-100 bg-gray-50">
       <div className="container">
@@ -22,16 +32,21 @@ export default async function Page() {
           >
             <path d="m15 18-6-6 6-6" />
           </svg>
-
           <span>Back to Home</span>
         </Link>
 
         <aside className="py-12 sm:py-20">
+          <div className="mb-8">
+            <h2 className="text-3xl text-gray-900 sm:text-4xl lg:text-5xl mb-2">All Posts</h2>
+            <p className="mt-2 text-lg leading-8 text-gray-600 mb-6">
+              A complete list of all my blog posts.
+            </p>
+            <Suspense>
+              <TagFilter tags={tags ?? []} />
+            </Suspense>
+          </div>
           <Suspense>
-            {await AllPosts({
-              heading: 'All Posts',
-              subHeading: 'A complete list of all my blog posts.',
-            })}
+            {await AllPosts({tagId})}
           </Suspense>
         </aside>
       </div>

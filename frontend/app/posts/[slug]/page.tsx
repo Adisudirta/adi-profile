@@ -3,7 +3,7 @@ import NotFound from '@/app/components/NotFound'
 import {type PortableTextBlock} from 'next-sanity'
 import {Suspense} from 'react'
 
-import Avatar from '@/app/components/Avatar'
+import {AuthorAvatarGroup} from '@/app/components/Authors'
 import {MorePosts} from '@/app/components/Posts'
 import PortableText from '@/app/components/PortableText'
 import Image from '@/app/components/SanityImage'
@@ -46,9 +46,9 @@ export async function generateMetadata(props: Props, parent: ResolvingMetadata):
 
   return {
     authors:
-      post?.author?.firstName && post?.author?.lastName
-        ? [{name: `${post.author.firstName} ${post.author.lastName}`}]
-        : [],
+      post?.authors
+        ?.filter((a) => a.firstName && a.lastName)
+        .map((a) => ({name: `${a.firstName} ${a.lastName}`})) ?? [],
     title: post?.title,
     description: post?.excerpt,
     openGraph: {
@@ -79,8 +79,8 @@ export default async function PostPage(props: Props) {
                 <h1 className="text-4xl text-gray-900 sm:text-5xl lg:text-7xl">{post.title}</h1>
               </div>
               <div className="max-w-3xl flex gap-4 items-center">
-                {post.author && post.author.firstName && post.author.lastName && (
-                  <Avatar person={post.author} date={post.date} />
+                {post.authors && post.authors.length > 0 && (
+                  <AuthorAvatarGroup authors={post.authors} date={post.date} />
                 )}
               </div>
             </div>

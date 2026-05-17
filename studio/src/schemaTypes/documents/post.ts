@@ -78,24 +78,30 @@ export const post = defineType({
       initialValue: () => new Date().toISOString(),
     }),
     defineField({
-      name: 'author',
-      title: 'Author',
-      type: 'reference',
-      to: [{type: 'person'}],
+      name: 'authors',
+      title: 'Authors',
+      type: 'array',
+      of: [{type: 'reference', to: [{type: 'person'}]}],
+    }),
+    defineField({
+      name: 'tags',
+      title: 'Tags',
+      type: 'array',
+      of: [{type: 'reference', to: [{type: 'tag'}]}],
     }),
   ],
   // List preview configuration. https://www.sanity.io/docs/previews-list-views
   preview: {
     select: {
       title: 'title',
-      authorFirstName: 'author.firstName',
-      authorLastName: 'author.lastName',
+      author0FirstName: 'authors.0.firstName',
+      author0LastName: 'authors.0.lastName',
       date: 'date',
       media: 'coverImage',
     },
-    prepare({title, media, authorFirstName, authorLastName, date}) {
+    prepare({title, media, author0FirstName, author0LastName, date}) {
       const subtitles = [
-        authorFirstName && authorLastName && `by ${authorFirstName} ${authorLastName}`,
+        author0FirstName && author0LastName && `by ${author0FirstName} ${author0LastName}`,
         date && `on ${format(parseISO(date), 'LLL d, yyyy')}`,
       ].filter(Boolean)
 
